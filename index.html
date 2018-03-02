@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<style>
+		*{margin: 0;padding: 0;}
+		.all{
+			width: 400px;
+			margin: 0 auto;
+		}
+		ul{border-top:1px solid #000;border-right:1px solid #000;margin-top: 10px;}
+		li{list-style: none;font-size: 0;height: 30px;line-height: 30px;}
+		li span{display: inline-block;height: 30px;font-size: 16px;width: 50%;border:1px solid #000;border-top:0;box-sizing: border-box;vertical-align: top;border-right:0;text-indent: 1em;overflow: hidden;}
+		.title span{font-size: 18px;font-weight: bold;}
+		#choose{
+			display: block;
+			margin: 0 auto;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			background-color: #24CAB2;
+			border-radius: 4px;
+			color:#fff;
+			border:0;
+			font-size: 14px;
+			cursor: pointer;
+			margin-top: 20px;
+			outline:none;
+		}
+		.people{
+			display: block;
+			text-align: center;
+			margin: 10px;
+		}
+		#hey,.date{color:#F7606F;}
+		.red{color:#F7606F !important;}
+	</style>
+	<script type="text/javascript">
+		$(function(){
+			var i;	//记录人员索引
+			var arr = ['薛崇伟','王永晨','李璐','王荣祥','赵强','张绪文','闫显光','程东','王璟萍','崔美玲','姜淼','吕颖颖'];
+
+			//开始抽奖
+			$("#choose").on('click',function(){
+				if(!$(this).hasClass('stop')){
+					// 点击抽奖修改按钮文本
+					$(this).addClass('stop').val('就是你了');
+					// 姓名滚动方法
+					choose = setInterval(function(){
+						i = Math.floor(Math.random()*12);
+						$("#hey").html(arr[i])
+					},10);
+				}else{
+					$(this).removeClass('stop').val('抽大奖啦');
+					clearInterval(choose);
+					// 在表格中进行标识
+					$(".name").each(function(){
+						if($(this).html() == arr[i]){
+							$(this).addClass('red');
+							var d = new Date();
+							var w = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][d.getDay()]
+							var t = d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+'日  '+w;
+							$(this).next('.date').html(t)
+						}
+					})
+				}
+				
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="all">
+		<ul>
+			<li class="title"><span>姓名</span><span>中奖日期</span></li>
+			<li class="list"><span class="name">薛崇伟</span><span class="date"></span></li>
+			<li class="list"><span class="name">王永晨</span><span class="date"></span></li>
+			<li class="list"><span class="name">李璐</span><span class="date"></span></li>
+			<li class="list"><span class="name">王荣祥</span><span class="date"></span></li>
+			<li class="list"><span class="name">赵强</span><span class="date"></span></li>
+			<li class="list"><span class="name">张绪文</span><span class="date"></span></li>
+			<li class="list"><span class="name">闫显光</span><span class="date"></span></li>
+			<li class="list"><span class="name">程东</span><span class="date"></span></li>
+			<li class="list"><span class="name">王璟萍</span><span class="date"></span></li>
+			<li class="list"><span class="name">崔美玲</span><span class="date"></span></li>
+			<li class="list"><span class="name">姜淼</span><span class="date"></span></li>
+			<li class="list"><span class="name">吕颖颖</span><span class="date"></span></li>
+		</ul>
+		<span class="people">中奖人员：<span id="hey">^,^</span></span>
+		<input id="choose" type="button" value="抽大奖啦">
+	</div>
+</body>
+</html>
